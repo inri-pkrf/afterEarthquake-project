@@ -155,3 +155,17 @@ h1{font-family:var(--font-head);font-weight:700;font-size:112px;line-height:.95;
 #timerBox.over #timerVal{color:var(--red);animation:blink 1s steps(2,start) infinite}
 @keyframes blink{50%{opacity:.35}}
 .sec ul.bad li::before{background:var(--red)}
+
+/* ===== כפתור מסך מלא ===== */
+#fsBtn{position:absolute;right:30px;bottom:24px;width:80px;height:80px;border-radius:22px;z-index:100;
+  background:#2d2d2d;border:3px solid #4a4a4a;display:flex;align-items:center;justify-content:center;opacity:.85}
+#fsBtn:active{transform:scale(.94)}
+#fsBtn svg{width:46px;height:46px;fill:none;stroke:var(--yellow);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#fsBtn .i-exit{display:none}
+#fsBtn.on .i-enter{display:none}
+#fsBtn.on .i-exit{display:block}
+
+/* ===== מצב בדיקה: מוסיפים ?debug לכתובת כדי לראות את אזורי הלחיצה ===== */
+.debug .spot{border:3px dashed cyan}
+.debug .spot::before{content:"";position:absolute;left:50%;top:50%;width:135%;height:135%;
+  transform:translate(-50%,-50%);border:2px dotted yellow;border-radius:50%}

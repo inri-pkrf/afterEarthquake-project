@@ -22,12 +22,12 @@
   <p class="sub">לאחר רעידת אדמה עלולות להיווצר סכנות שונות. <span class="yl">לחצו על הסכנות שאתם מזהים בתמונה.</span></p>
 
   <section id="controls">
-    <button id="hintBtn" type="button" aria-label="קבל רמז">
+    <button id="hintBtn" type="button" aria-label="רמז">
       <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
         <path d="M32 6c-10 0-18 7.6-18 17 0 6.2 3.2 10.6 6.6 14 1.9 1.9 3 4 3 6.4V46h16.8v-2.6c0-2.4 1.1-4.5 3-6.4C46.800 33.600 50 29.200 50 23 50 13.600 42 6 32 6z" fill="#111"/>
         <rect x="23" y="50" width="18" height="5" rx="2.500" fill="#111"/><rect x="26" y="57" width="12" height="4" rx="2" fill="#111"/>
       </svg>
-      <span data-fit="150">קבל רמז</span><span id="hintCount"></span>
+      <span data-fit="150">רמז</span><span id="hintCount"></span>
     </button>
     <div id="timerBox" class="box">
       <div id="timerVal" data-fit="165">00:00</div>
@@ -58,6 +58,10 @@
   </main>
 
   <div id="overlay" aria-hidden="true"></div>
+    <button id="fsBtn" type="button" aria-label="מסך מלא">
+    <svg class="i-enter" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    <svg class="i-exit" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+  </button>
     <div id="startScreen">
     <div class="start-in">
       <img src="images/logo.png" alt="לוגו" class="start-logo">

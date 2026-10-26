@@ -5,7 +5,7 @@ const CONFIG = {
   logoSrc: "images/logo.png", // נתיב הלוגו. להחלפה: מחליפים את הקובץ images/logo.png או משנים כאן
   timerDefaultOn: true, // האם הטיימר פעיל כברירת מחדל
   hintDurationMs: 6000, // כמה זמן הרמז מהבהב
-   countdownSeconds: 120,  // זמן הספירה לאחור לכל תרחיש, בשניות
+  countdownSeconds: 120, // זמן הספירה לאחור לכל תרחיש, בשניות
 };
 
 /* אזורי לחיצה: [מרכז-X%, מרכז-Y%, רוחב%, גובה%] יחסית לתמונה. אפשר כמה אזורים לאותה סכנה.
@@ -40,9 +40,9 @@ const SCENARIOS = [
         title: "שברי זכוכית",
         level: "med",
         areas: [
-          [25, 71, 18, 8],
-          [47, 74, 22, 8],
-          [82, 68, 17, 8],
+          [27, 72, 26, 11],
+          [50, 75, 28, 11],
+          [82, 68, 20, 10],
         ],
         danger:
           "שברי חלונות וחזיתות זכוכית פזורים על דרכי המעבר וגורמים לחתכים. בהדהוד (רעידת המשך) עלולים ליפול שברים נוספים מהקומות העליונות.",
@@ -152,8 +152,8 @@ const SCENARIOS = [
         title: "שברי זכוכית על הרצפה",
         level: "med",
         areas: [
-          [47, 75, 19, 8],
-          [65, 82, 25, 9],
+          [47, 75, 24, 11],
+          [65, 82, 30, 12],
         ],
         danger:
           "שברי זכוכית חדים פזורים על דרך ההליכה וגורמים לחתכים, במיוחד למי שהולך בנעליים פתוחות או נמלט בבהלה.",
@@ -392,19 +392,39 @@ const SCENARIOS = [
     renderTimer();
   });
 
-  /* לחיצה על התמונה */
+  /* זיהוי לחיצה גמיש: כל לחיצה על סכנה או קרוב אליה נחשבת נכונה */
+  const HIT_TOLERANCE = 1.35; // 1 = בדיוק האזור שהוגדר. גדול יותר = סלחני יותר
+  function hazardAt(x, y) {
+    const sc = SCENARIOS[state.idx];
+    let best = null,
+      bestD = Infinity;
+    sc.hazards.forEach((h) =>
+      h.areas.forEach(([cx, cy, w, hh]) => {
+        const dx = (x - cx) / (w / 2),
+          dy = (y - cy) / (hh / 2);
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d <= HIT_TOLERANCE && d < bestD) {
+          best = h;
+          bestD = d;
+        }
+      }),
+    );
+    return best;
+  }
   imgbox.addEventListener("click", (e) => {
     if (state.modalOpen) return;
-    const spot = e.target.closest(".spot");
-    if (spot) {
-      onSpot(spot.dataset.h);
-      return;
-    }
     const r = imgbox.getBoundingClientRect();
-    miss(
-      ((e.clientX - r.left) / r.width) * 100,
-      ((e.clientY - r.top) / r.height) * 100,
-    );
+    const k = r.width / imgbox.offsetWidth; // יחס הקטנה/הגדלה של הבמה
+    const x =
+      ((e.clientX - r.left - imgbox.clientLeft * k) /
+        (imgbox.clientWidth * k)) *
+      100;
+    const y =
+      ((e.clientY - r.top - imgbox.clientTop * k) / (imgbox.clientHeight * k)) *
+      100;
+    const hazard = hazardAt(x, y);
+    if (hazard) onSpot(hazard.id);
+    else miss(x, y);
   });
 
   function miss(x, y) {
@@ -656,6 +676,22 @@ const SCENARIOS = [
   /* מניעת תפריט הקשר / זום בלחיצה כפולה */
   addEventListener("contextmenu", (e) => e.preventDefault());
   addEventListener("dblclick", (e) => e.preventDefault());
+
+    /* מסך מלא */
+  const fsBtn = $("#fsBtn"),
+    fsRoot = document.documentElement;
+  const isFs = () => document.fullscreenElement || document.webkitFullscreenElement;
+  if (!(fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen)) fsBtn.style.display = "none";
+  fsBtn.addEventListener("click", () => {
+    if (isFs()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen).call(fsRoot);
+  });
+  const syncFs = () => fsBtn.classList.toggle("on", !!isFs());
+  document.addEventListener("fullscreenchange", syncFs);
+  document.addEventListener("webkitfullscreenchange", syncFs);
+
+  /* מצב בדיקה: הוסיפו ?debug לכתובת כדי לראות את אזורי הלחיצה */
+  if (location.search.includes("debug")) document.body.classList.add("debug");
 
   /* התאמת טקסט שורה-אחת לרוחב (גיבוי למקרה שהפונט עדיין לא נטען) */
   function autoFit() {
