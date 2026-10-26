@@ -295,7 +295,7 @@ const SCENARIOS = [
       },
     ],
   },
- 
+
   /* ===== תרחיש 4 — מעבדה: חומרים מסוכנים (images/scenario-4.jpg) ===== */
   {
     id: "lab-hazmat",
@@ -331,7 +331,7 @@ const SCENARIOS = [
           "אל תיגעו בנוזל ואל תדרכו בו. הימנעו מנשימת האדים.",
           "התרחקו נגד כיוון הרוח או החוצה, והרחיקו אנשים מהאזור.",
           "דווחו לכבאות והצלה (102) וציינו מה ידוע על החומר.",
-          "מי שנחשף: הרחיקו אותו לאוויר צח, הסירו בגדים מזוהמים ושטפו במים. הזעיקו מד\"א (101).",
+          'מי שנחשף: הרחיקו אותו לאוויר צח, הסירו בגדים מזוהמים ושטפו במים. הזעיקו מד"א (101).',
         ],
       },
       {
@@ -361,7 +361,7 @@ const SCENARIOS = [
         actions: [
           "אל תלכו יחפים או בנעליים פתוחות.",
           "אל תנקו בידיים. נקו רק לאחר אישור האזור, בכפפות ובציוד מגן.",
-          "טפלו בחתכים והזעיקו מד\"א (101) לפצועים.",
+          'טפלו בחתכים והזעיקו מד"א (101) לפצועים.',
           "סמנו את האזור והפנו אנשים לציר עוקף.",
         ],
       },
@@ -381,7 +381,7 @@ const SCENARIOS = [
       },
     ],
   },
- 
+
   /* ===== תרחיש 5 — מסדרון פגוע (images/scenario-5.jpg) ===== */
   {
     id: "damaged-corridor",
@@ -417,7 +417,7 @@ const SCENARIOS = [
           "התרחקו מהחלון ומהזכוכית הסדוקה.",
           "אל תיגעו בזכוכית ואל תנסו להסיר אותה.",
           "סמנו גבול ביטחון והרחיקו אנשים מהצד של החלון.",
-          "דווחו לצוות התחזוקה. פצועים: מד\"א (101).",
+          'דווחו לצוות התחזוקה. פצועים: מד"א (101).',
         ],
       },
       {
@@ -434,7 +434,7 @@ const SCENARIOS = [
           "אל תלכו יחפים או בסנדלים.",
           "נקו רק לאחר שהאזור אושר, בנעליים סגורות ובכפפות.",
           "הניחו מסלול עוקף מסומן.",
-          "פצועים: הזעיקו מד\"א (101).",
+          'פצועים: הזעיקו מד"א (101).',
         ],
       },
       {
@@ -467,7 +467,7 @@ const SCENARIOS = [
       },
     ],
   },
- 
+
   /* ===== תרחיש 6 — גרם מדרגות פגוע (images/scenario-6.jpg) ===== */
   {
     id: "damaged-stairs",
@@ -552,7 +552,6 @@ const SCENARIOS = [
       },
     ],
   },
- 
 ];
 
 /* =====================================================================
@@ -861,7 +860,6 @@ const SCENARIOS = [
         '<div class="sec"><h3>מה עושים?</h3><ul>' +
         h.actions.map((a) => "<li>" + esc(a) + "</li>").join("") +
         "</ul></div>" +
-        '<div class="src">בהתאם להנחיות פיקוד העורף</div>' +
         (completed
           ? '<div class="okline">✓ זיהיתם את כל הסכנות בתרחיש הזה!</div>'
           : "") +
@@ -920,13 +918,12 @@ const SCENARIOS = [
             totalFound +
             " מתוך " +
             totalAll +
-            " סכנות — אפשר לחזור ולהשלים") +
+            " סכנות - אפשר לחזור ולהשלים") +
         "</div>" +
         '<div style="display:flex;flex-direction:column;gap:10px">' +
         '<div class="srow hd"><span>תרחיש</span><span>סכנות</span><span>זמן</span><span>רמזים</span><span>לחיצות שגויות</span></div>' +
         rows +
         "</div>" +
-        '<div class="emerg"><b>מספרי חירום:</b> מד"א 101 · כב"א 102 · משטרה 100 · חברת החשמל 103 · פיקוד העורף 104</div>' +
         '<div class="btnrow">' +
         '<button id="sBack" class="navbtn ghost" type="button"><span>חזרה לתרחישים</span></button>' +
         '<button id="sReset" class="navbtn primary" type="button"><span>התחלה מחדש</span></button>' +
@@ -1022,14 +1019,18 @@ const SCENARIOS = [
   addEventListener("contextmenu", (e) => e.preventDefault());
   addEventListener("dblclick", (e) => e.preventDefault());
 
-    /* מסך מלא */
+  /* מסך מלא */
   const fsBtn = $("#fsBtn"),
     fsRoot = document.documentElement;
-  const isFs = () => document.fullscreenElement || document.webkitFullscreenElement;
-  if (!(fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen)) fsBtn.style.display = "none";
+  const isFs = () =>
+    document.fullscreenElement || document.webkitFullscreenElement;
+  if (!(fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen))
+    fsBtn.style.display = "none";
   fsBtn.addEventListener("click", () => {
-    if (isFs()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
-    else (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen).call(fsRoot);
+    if (isFs())
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else
+      (fsRoot.requestFullscreen || fsRoot.webkitRequestFullscreen).call(fsRoot);
   });
   const syncFs = () => fsBtn.classList.toggle("on", !!isFs());
   document.addEventListener("fullscreenchange", syncFs);

@@ -169,3 +169,7 @@ h1{font-family:var(--font-head);font-weight:700;font-size:112px;line-height:.95;
 .debug .spot{border:3px dashed cyan}
 .debug .spot::before{content:"";position:absolute;left:50%;top:50%;width:135%;height:135%;
   transform:translate(-50%,-50%);border:2px dotted yellow;border-radius:50%}
+
+  #second-title-screen{
+    text-align: center;
+  }
