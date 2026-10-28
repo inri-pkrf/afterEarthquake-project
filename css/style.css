@@ -742,15 +742,15 @@ h1 {
   color: #e0e0e0;
 }
 #startBtn {
-  width: 500px;
-  height: 160px;
+  width: 450px;
+  height: 130px;
   border-radius: 36px;
   background: var(--yellow);
   color: #111;
   margin-top: 30px;
   font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 110px;
+  font-weight: 550;
+  font-size: 100px;
   line-height: 1;
   padding-top: 12px;
   box-shadow: 0 8px 0 var(--yellow-d);
