@@ -1093,10 +1093,10 @@ const SCENARIOS = [
   }
 
   /* מסך התחלה — הטיימר מתחיל רק אחרי הלחיצה */
-  $("#startNote").textContent =
-    "לכל תרחיש מוקצב זמן של " +
-    fmt(CONFIG.countdownSeconds * 1000) +
-    " דקות. אפשר לכבות את הטיימר במתג שבמסך.";
+  // $("#startNote").textContent =
+  //   "לכל תרחיש מוקצב זמן של " +
+  //   fmt(CONFIG.countdownSeconds * 1000) +
+  //   " דקות. אפשר לכבות את הטיימר במתג שבמסך.";
   $("#startBtn").addEventListener("click", () => {
     state.started = true;
     lastTick = performance.now();
